@@ -1,0 +1,9 @@
+.body-wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+.maincoutainer {
+  /* margin-top: 100px; */
+  /* padding-bottom: 500px; footer의 높이 */
+}
