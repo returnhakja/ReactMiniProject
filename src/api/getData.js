@@ -3,8 +3,15 @@
 //     console.log(dataArr);
 //   }
 
-import axios from "axios";
-import { useEffect } from "react/cjs/react.production.min";
+// import request from "./request";
+
+// const getData = async () => {
+//   const data = await request(
+//     "https://pixabay.com/api/?key=27684552-9669b2df226f15eb80bd31191&q=sky&image_type=photo"
+//   );
+//   return data;
+// };
+// export default getData;
 
 //   const [travelsite, setTravelSite] = useState([]);
 //   useEffect(() => {

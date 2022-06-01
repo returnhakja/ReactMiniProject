@@ -1,10 +1,12 @@
-import logo from "./logo.svg";
-import "./App.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import XMLParser from "react-xml-parser";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretDown,
+  faThumbsDown,
+  faThumbsUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 const travelData = {
   UC_SEQ: 259,
@@ -35,31 +37,26 @@ const travelData = {
 function DetailPage() {
   function switchImo(word) {
     const val = word.split(" ");
-    console.log(val);
+    // console.log(val);
     for (let i = 0; i < word.length; i++) {
-      console.log(val[i].includes("버스"));
+      //   console.log(val[i].includes("버스"));
       if (val[i].includes("버스")) {
         return word.replace(val[i], "🚌");
       }
     }
   }
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
+  const [printWholeText, setPrintWholeText] = useState(false);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(
-          "/getAttractionKr?serviceKey=jIOntE9gO%2FGbEdIL68gTGVa05rWl0dDOGukYYzSZEqaHI7NfYbrgdx1tDFhu%2FcLwvyS4I7CdONwdO2w6EwJvnA%3D%3D&pageNo=1&numOfRows=100&resultType=json"
-        );
-        const data = JSON.stringify(response);
-        const dataJson = JSON.parse(data);
-        console.log(dataJson.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
-  }, []);
+  const increaseNum = () => {
+    setCount(count + 1);
+  };
+
+  const printWhole = () => {
+    // {printWholeText==true?{travelData.ITEMCNTNTS}:}
+    setPrintWholeText(!printWholeText);
+  };
+
   return (
     <div>
       <div className="container">
@@ -68,8 +65,13 @@ function DetailPage() {
             <img src={travelData.MAIN_IMG_NORMAL} alt="" />
             <p>죽성성당</p>
             <div>
-              <button>👍 1</button>
-              <button>👎 0</button>
+              <button className="btn" onClick={increaseNum}>
+                <FontAwesomeIcon icon={faThumbsUp} />
+                {count}
+              </button>
+              <button className="btn">
+                <FontAwesomeIcon icon={faThumbsDown} /> 0
+              </button>
             </div>
           </div>
 
@@ -83,17 +85,20 @@ function DetailPage() {
               <p>입장료: {travelData.USAGE_AMOUNT}</p>
               <p>오시는 길 : {switchImo(travelData.TRFC_INFO)}</p>
               <p>이용 가능 시간: {travelData.USAGE_DAY_WEEK_AND_TIME}</p>
-              <p onClick={() => {}}>
+              <p onClick={printWhole} className="printText">
                 <FontAwesomeIcon icon={faCaretDown} />
-                {travelData.ITEMCNTNTS}
+                {travelData.ITEMCNTNTS.substr(0, 90)}
+                {travelData.ITEMCNTNTS.length > 90 &&
+                printWholeText === false ? (
+                  "..."
+                ) : (
+                  <div>{travelData.ITEMCNTNTS}</div>
+                )}
               </p>
             </div>
           </div>
         </div>
       </div>
-      {/* <div>
-          <FontAwesomeIcon icon={faBars} size="2x" />
-        </div> */}
     </div>
   );
 }
