@@ -1,0 +1,40 @@
+.container {
+  border: 2px dashed salmon;
+}
+.contents {
+  display: grid;
+  border: 2px dashed red;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  align-items: center;
+}
+.imgContent {
+  text-align: center;
+}
+.container img {
+  width: 400px;
+  height: 300px;
+  border-radius: 50px;
+}
+
+.detailInfo {
+  border: 2px dashed skyblue;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.detailInfo p {
+  display: -webkit-box;
+  width: 800px;
+  height: 45px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.detailTitle {
+  text-align: center;
+}
+.detailContent p:last-child:hover {
+  text-decoration: underline;
+}
